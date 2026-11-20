@@ -24,7 +24,9 @@ import type {
 import type { PayrollNovelties } from "@/lib/payroll";
 import type { RutPointOfSale } from "@/lib/rut";
 
-interface NewEmployeeInput {
+export interface NewEmployeeInput {
+  fixedEarnings?: Employee["fixedEarnings"];
+  fixedDeductions?: Employee["fixedDeductions"];
   firstName: string;
   lastName: string;
   docType: Employee["docType"];
@@ -52,7 +54,7 @@ interface NewEmployeeInput {
   accountNumber: string;
 }
 
-interface NewCompanyInput {
+export interface NewCompanyInput {
   name: string;
   nit: string;
   city: string;
@@ -68,7 +70,7 @@ interface NewCompanyInput {
   pointsOfSale?: RutPointOfSale[];
 }
 
-interface AppContextValue {
+export interface AppContextValue {
   session: Session | null;
   authLoading: boolean;
   dataLoading: boolean;
@@ -166,6 +168,7 @@ interface AppContextValue {
   ) => Promise<void>;
   removePayrollLine: (payrollId: string, lineId: string) => Promise<void>;
   setPayrollStatus: (payrollId: string, status: PayrollStatus) => Promise<void>;
+  reopenPaidPayroll: (payrollId: string, reason: string) => Promise<boolean>;
   finalizePayrollPeriod: (period: string) => Promise<void>;
   addAccrualPayment: (input: {
     employeeId: string;

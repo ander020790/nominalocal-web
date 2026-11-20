@@ -29,7 +29,8 @@ export const extractRutFromPdf = async (file: File): Promise<RutParseResult> => 
   let task: ReturnType<typeof pdfjs.getDocument> | null = null;
 
   const openDocument = () => {
-    task = pdfjs.getDocument({ data, isEvalSupported: false });
+    const documentOptions = { data, isEvalSupported: false };
+    task = pdfjs.getDocument(documentOptions);
     return task.promise;
   };
 

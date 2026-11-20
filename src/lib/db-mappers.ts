@@ -1,4 +1,4 @@
-import type { Database } from "@/integrations/supabase/types";
+import type { Database, Json } from "@/integrations/supabase/types";
 import type {
   Absence,
   AccrualPayment,
@@ -96,8 +96,8 @@ export const mapEmployee = (row: EmployeeRow): Employee => ({
   accountNumber: row.account_number,
   accountType: row.account_type === "corriente" ? "corriente" : "ahorros",
   status: row.status === "retirado" ? "retirado" : "activo",
-  fixedEarnings: (row.fixed_earnings ?? []) as Employee["fixedEarnings"],
-  fixedDeductions: (row.fixed_deductions ?? []) as Employee["fixedDeductions"],
+  fixedEarnings: (row.fixed_earnings ?? []) as unknown as Employee["fixedEarnings"],
+  fixedDeductions: (row.fixed_deductions ?? []) as unknown as Employee["fixedDeductions"],
   terminationReason:
     (row.termination_reason as Employee["terminationReason"]) ?? "",
 });
@@ -238,8 +238,8 @@ export const employeeToInsert = (
   bank: employee.bank,
   account_type: employee.accountType,
   account_number: employee.accountNumber,
-  fixed_earnings: employee.fixedEarnings,
-  fixed_deductions: employee.fixedDeductions,
+  fixed_earnings: employee.fixedEarnings as unknown as Json,
+  fixed_deductions: employee.fixedDeductions as unknown as Json,
   status: "activo",
 });
 
@@ -282,9 +282,9 @@ export const employeePatch = (
   if (patch.accountType !== undefined)
     row.account_type = patch.accountType;
   if (patch.fixedEarnings !== undefined)
-    row.fixed_earnings = patch.fixedEarnings;
+    row.fixed_earnings = patch.fixedEarnings as unknown as Json;
   if (patch.fixedDeductions !== undefined)
-    row.fixed_deductions = patch.fixedDeductions;
+    row.fixed_deductions = patch.fixedDeductions as unknown as Json;
   if (patch.status !== undefined) row.status = patch.status;
   if (patch.endDate === null) row.end_date = null;
   return row;

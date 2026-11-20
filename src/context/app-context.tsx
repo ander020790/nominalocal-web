@@ -10,6 +10,7 @@ import {
 import type { User } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import { BASE_PARAMS, DEFAULT_CONCEPTS } from "@/data/defaults";
 import type {
   Absence,
@@ -636,8 +637,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         economic_activity: input.economicActivity ?? "",
         tax_responsibilities: input.taxResponsibilities ?? "",
         status: "activa",
-        params: BASE_PARAMS as unknown as Record<string, unknown>,
-        concepts: DEFAULT_CONCEPTS as unknown as Record<string, unknown>[],
+        params: BASE_PARAMS as unknown as Json,
+        concepts: DEFAULT_CONCEPTS as unknown as Json,
         points_of_sale:
           input.pointsOfSale && input.pointsOfSale.length > 0
             ? input.pointsOfSale.map((point) => ({
@@ -1083,7 +1084,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         p_company_id: currentCompany.id,
         p_period: targetPeriod,
         p_fortnight: targetFortnight,
-        p_rows: rows,
+        p_rows: rows as unknown as Json,
       });
 
       if (error) {
@@ -1325,7 +1326,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       const { data, error } = await supabase
         .from("payroll_payrolls")
         .update({
-          lines: lines as unknown as Record<string, unknown>[],
+          lines: lines as unknown as Json,
           status: nextStatus,
         })
         .eq("id", payrollId)
@@ -1397,6 +1398,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     },
     [payrolls, persistPayrollLines],
   );
+
+  const reopenPaidPayroll = useCallback(async (payrollId: string, reason: string) => {
+    const { error } = await supabase.rpc("payroll_reopen_paid" as never, {
+      p_payroll_id: payrollId,
+      p_reason: reason.trim(),
+    } as never);
+    if (error) {
+      toast.error(error.message);
+      return false;
+    }
+    await refresh();
+    toast.success("Nómina reabierta como revisada. El pago real no se revierte.");
+    return true;
+  }, [refresh]);
 
   const setPayrollStatus = useCallback(
     async (payrollId: string, status: PayrollStatus) => {
@@ -1987,6 +2002,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       addPayrollLine,
       removePayrollLine,
       setPayrollStatus,
+      reopenPaidPayroll,
       finalizePayrollPeriod,
       addAccrualPayment,
       deleteAccrualPayment,
@@ -2051,6 +2067,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       addPayrollLine,
       removePayrollLine,
       setPayrollStatus,
+      reopenPaidPayroll,
       finalizePayrollPeriod,
       addAccrualPayment,
       deleteAccrualPayment,

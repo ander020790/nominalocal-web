@@ -9,6 +9,7 @@ import {
   FileText,
   Lock,
   Pencil,
+  RotateCcw,
   Search,
   Sparkles,
   Trash2,
@@ -92,12 +93,17 @@ export const Payrolls = () => {
     payPayrollFortnight,
     updatePayrollFortnightDate,
     setPayrollStatus,
+    reopenPaidPayroll,
+    viewRole,
     employeeSignatures,
     periodClosures,
     finalizePayrollPeriod,
     reopenPayrollPeriod,
   } = useApp();
   const [search, setSearch] = useState("");
+  const [reopenTarget, setReopenTarget] = useState<Payroll | null>(null);
+  const [reopenReason, setReopenReason] = useState("");
+  const [reopening, setReopening] = useState(false);
   const [statusFilter, setStatusFilter] = useState("todos");
   const [selected, setSelected] = useState<Payroll | null>(null);
   const [generateOpen, setGenerateOpen] = useState(false);
@@ -805,6 +811,13 @@ export const Payrolls = () => {
                               <CheckCircle2 className="size-3.5" />
                             </Button>
                           ) : null}
+                          {payroll.status === "pagado" && viewRole === "owner" && !periodFinal ? (
+                            <Button size="icon" variant="ghost" className="size-8"
+                              title="Reabrir nómina pagada" aria-label="Reabrir nómina pagada"
+                              onClick={(event) => { event.stopPropagation(); setReopenReason(""); setReopenTarget(payroll); }}>
+                              <RotateCcw className="size-3.5" />
+                            </Button>
+                          ) : null}
                           {payroll.status === "borrador" && !periodFinal ? (
                             <Button
                               size="icon"
@@ -1261,6 +1274,31 @@ export const Payrolls = () => {
           }}
         />
       ) : null}
+      <Dialog open={Boolean(reopenTarget)} onOpenChange={(open) => { if (!open && !reopening) setReopenTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Reabrir nómina pagada</DialogTitle>
+            <DialogDescription>
+              La nómina volverá a estado revisado y se borrará la fecha de pago registrada en el sistema.
+              Esta acción no revierte transferencias bancarias ni reportes ante la DIAN.
+            </DialogDescription>
+          </DialogHeader>
+          <label htmlFor="reopen-reason" className="text-sm font-medium">Motivo de la reapertura</label>
+          <Input id="reopen-reason" value={reopenReason} onChange={(event) => setReopenReason(event.target.value)}
+            placeholder="Explica el motivo (mínimo 10 caracteres)" maxLength={500} />
+          <DialogFooter>
+            <Button variant="outline" disabled={reopening} onClick={() => setReopenTarget(null)}>Cancelar</Button>
+            <Button disabled={reopening || reopenReason.trim().length < 10}
+              onClick={async () => {
+                if (!reopenTarget) return;
+                setReopening(true);
+                try {
+                  if (await reopenPaidPayroll(reopenTarget.id, reopenReason)) setReopenTarget(null);
+                } finally { setReopening(false); }
+              }}>Confirmar reapertura</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
