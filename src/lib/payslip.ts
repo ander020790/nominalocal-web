@@ -202,9 +202,9 @@ export const downloadPayslipPdf = async (
   }
   if (!hasBreakdown && missingDays > 0) {
     detailRows.push({
-      label: `Días no laborados (${missingDays})`,
-      formula: `${formatCOP(employee.salary)} ÷ 30 × ${missingDays} días`,
-      amount: -Math.round(dailySalary * missingDays),
+      // No generar una novedad de descuento por los días
+// anteriores a la fecha de ingreso del trabajador.
+// El salario proporcional ya está reflejado en los devengos.
     });
   }
 
