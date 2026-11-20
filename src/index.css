@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 30% 97%;
+    --foreground: 224 40% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 40% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 40% 12%;
+
+    --primary: 244 61% 43%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 244 70% 96%;
+    --primary-glow: 252 78% 62%;
+
+    --secondary: 222 24% 94%;
+    --secondary-foreground: 224 35% 20%;
+
+    --muted: 220 20% 95%;
+    --muted-foreground: 222 12% 45%;
+
+    --accent: 172 58% 36%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 172 60% 94%;
+
+    --destructive: 356 70% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-soft: 356 80% 96%;
+
+    --success: 158 62% 32%;
+    --success-foreground: 0 0% 100%;
+    --success-soft: 158 55% 94%;
+
+    --warning: 33 88% 44%;
+    --warning-foreground: 0 0% 100%;
+    --warning-soft: 38 92% 95%;
+
+    --info: 214 82% 46%;
+    --info-foreground: 0 0% 100%;
+    --info-soft: 214 85% 96%;
+
+    --border: 220 18% 89%;
+    --input: 220 18% 87%;
+    --ring: 244 61% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 226 44% 13%;
+    --sidebar-foreground: 220 20% 92%;
+    --sidebar-primary: 252 80% 68%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 226 34% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 226 28% 23%;
+    --sidebar-ring: 252 80% 68%;
+
+    --chart-1: 244 61% 55%;
+    --chart-2: 172 58% 40%;
+    --chart-3: 33 88% 52%;
+    --chart-4: 214 82% 55%;
+    --chart-5: 320 60% 55%;
+
+    --shadow-soft: 0 1px 2px hsl(224 40% 12% / 0.04),
+      0 8px 24px -12px hsl(224 40% 12% / 0.16);
+    --shadow-elevated: 0 2px 4px hsl(224 40% 12% / 0.05),
+      0 24px 48px -24px hsl(244 61% 25% / 0.28);
+    --gradient-brand: linear-gradient(
+      135deg,
+      hsl(244 61% 38%) 0%,
+      hsl(258 72% 52%) 55%,
+      hsl(268 76% 58%) 100%
+    );
+    --gradient-sidebar: linear-gradient(
+      180deg,
+      hsl(226 46% 14%) 0%,
+      hsl(232 44% 11%) 100%
+    );
+    --gradient-surface: linear-gradient(
+      180deg,
+      hsl(0 0% 100%) 0%,
+      hsl(222 30% 99%) 100%
+    );
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 226 34% 8%;
+    --foreground: 220 25% 94%;
+
+    --card: 226 30% 11%;
+    --card-foreground: 220 25% 94%;
+
+    --popover: 226 30% 11%;
+    --popover-foreground: 220 25% 94%;
+
+    --primary: 252 80% 68%;
+    --primary-foreground: 226 44% 12%;
+    --primary-soft: 244 40% 20%;
+    --primary-glow: 258 80% 74%;
+
+    --secondary: 226 24% 17%;
+    --secondary-foreground: 220 25% 94%;
+
+    --muted: 226 22% 16%;
+    --muted-foreground: 220 14% 66%;
+
+    --accent: 172 52% 52%;
+    --accent-foreground: 226 44% 10%;
+    --accent-soft: 172 40% 18%;
+
+    --destructive: 356 68% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-soft: 356 40% 20%;
+
+    --success: 158 55% 52%;
+    --success-foreground: 226 44% 10%;
+    --success-soft: 158 30% 18%;
+
+    --warning: 38 88% 60%;
+    --warning-foreground: 226 44% 10%;
+    --warning-soft: 38 40% 18%;
+
+    --info: 214 82% 62%;
+    --info-foreground: 226 44% 10%;
+    --info-soft: 214 40% 18%;
+
+    --border: 226 22% 20%;
+    --input: 226 22% 22%;
+    --ring: 252 80% 68%;
+
+    --sidebar-background: 226 40% 10%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 252 80% 70%;
+    --sidebar-primary-foreground: 226 44% 10%;
+    --sidebar-accent: 226 30% 16%;
+    --sidebar-accent-foreground: 220 20% 94%;
+    --sidebar-border: 226 26% 19%;
+    --sidebar-ring: 252 80% 70%;
+
+    --chart-1: 252 80% 70%;
+    --chart-2: 172 52% 56%;
+    --chart-3: 38 88% 62%;
+    --chart-4: 214 82% 66%;
+    --chart-5: 320 62% 66%;
+
+    --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.3),
+      0 8px 24px -12px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 2px 4px hsl(0 0% 0% / 0.35),
+      0 24px 48px -24px hsl(0 0% 0% / 0.6);
+    --gradient-brand: linear-gradient(
+      135deg,
+      hsl(252 62% 46%) 0%,
+      hsl(262 70% 54%) 55%,
+      hsl(272 72% 58%) 100%
+    );
+    --gradient-sidebar: linear-gradient(
+      180deg,
+      hsl(226 40% 11%) 0%,
+      hsl(230 40% 8%) 100%
+    );
+    --gradient-surface: linear-gradient(
+      180deg,
+      hsl(226 30% 11%) 0%,
+      hsl(226 32% 10%) 100%
+    );
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui,
+      sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-xl border border-border bg-card text-card-foreground;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .brand-gradient {
+    background-image: var(--gradient-brand);
+  }
+
+  .text-gradient {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 999px;
+  }
+
+  .grid-pattern {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--border) / 0.6) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, hsl(var(--border) / 0.6) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
+
+@layer utilities {
+  .animate-rise {
+    animation: rise 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-fade {
+    animation: fade 0.3s ease-out both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media print {
+  body {
+    background: hsl(0 0% 100%);
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

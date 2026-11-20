@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm run build:prod",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!assets/|icons/|favicon.ico|manifest.webmanifest|sw.js|robots.txt).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "Nómina Clara · Nómina y RRHH",
+  "short_name": "Nómina Clara",
+  "description": "Nómina colombiana multiempresa, contratos, liquidaciones, préstamos y portal del empleado.",
+  "lang": "es-CO",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#F5F6FA",
+  "theme_color": "#342BB1",
+  "categories": ["business", "productivity", "finance"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nóminas",
+      "short_name": "Nóminas",
+      "url": "/nominas"
+    },
+    {
+      "name": "Empleados",
+      "short_name": "Empleados",
+      "url": "/empleados"
+    },
+    {
+      "name": "Mi portal",
+      "short_name": "Portal",
+      "url": "/portal"
+    }
+  ]
+}

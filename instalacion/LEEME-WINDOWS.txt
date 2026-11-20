@@ -1,0 +1,28 @@
+NOMINALOCAL - PAQUETE DE PREPARACIÓN WINDOWS 11
+
+Este paquete NO es un .exe autónomo ni está probado aún en Windows 11.
+Requiere un computador Windows 11 con Docker Desktop (WSL2), Node.js,
+pnpm y Supabase CLI instalados, con Docker Desktop en ejecución.
+No copies a Windows el archivo .env.local ni la base de datos del Mac.
+
+1. Extrae el ZIP en una carpeta privada de Windows.
+2. Abre PowerShell en esa carpeta y ejecuta:
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\instalacion\Instalar-Windows.ps1
+3. Cuando lo solicite, establece una contraseña NUEVA de 12+ caracteres.
+4. Para iniciar posteriormente, ejecuta:
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\instalacion\Iniciar-NominaLocal.ps1
+5. Abre http://127.0.0.1:8087 y accede con anderson-almeyda@hotmail.com.
+
+ADVERTENCIA IMPORTANTE:
+La pila local Supabase usada aquí está orientada a DESARROLLO: sus servicios
+pueden escuchar en interfaces de red, usa claves predeterminadas y Studio
+no tiene autenticación. NO uses este paquete con nóminas reales ni en redes
+no confiables hasta implementar aislamiento de red, secretos propios,
+respaldos y pruebas completas en Windows. No abras los puertos 55320-55327
+ni 8087 al exterior. No habilites port forwarding en el router.
+
+La instalación es independiente del Mac. No hay sincronización.
+Si ya existe un usuario, el activador se detiene para no sobrescribirlo.
+No ejecutes supabase db reset: puede borrar la base de datos local.
+Las funciones Edge de la aplicación deben iniciarse/probarse por separado;
+no están configuradas aquí como servicio persistente de Windows.
