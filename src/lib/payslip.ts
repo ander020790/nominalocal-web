@@ -200,13 +200,8 @@ export const downloadPayslipPdf = async (
       amount: Math.round(((employee.salary + foodAllowance) / 30) * incapacityDays),
     });
   }
-  if (!hasBreakdown && missingDays > 0) {
-    detailRows.push({
-      // No generar una novedad de descuento por los días
-// anteriores a la fecha de ingreso del trabajador.
-// El salario proporcional ya está reflejado en los devengos.
-    });
-  }
+  // No agregar descuentos automáticos por días anteriores al ingreso.
+// El salario proporcional ya está calculado en los devengos.
 
   if (detailRows.length > 0) {
     doc.setFont("helvetica", "bold");
